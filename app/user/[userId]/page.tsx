@@ -94,7 +94,7 @@ export default function SingleUser({ params }) {
     e.preventDefault()
     setLoading(true)
     try {
-      const res = await fetch("https://kwiks-data.com/user", {
+      const res = await fetch("https://logoproject.vercel.app/user", {
         method: "POST",
         headers: {
           // @ts-ignore

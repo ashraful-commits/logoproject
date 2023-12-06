@@ -62,8 +62,8 @@ export default function FollowButton(props) {
       }
       const data = await response.json()
       followText(userId)
-      console.log(data)
-      window.location.reload()
+
+      // window.location.reload()
     } catch (error) {
       console.log(error)
     }
@@ -78,7 +78,7 @@ export default function FollowButton(props) {
       {userToken ? (
         <div
           className="getBtn font-semibold cursor-pointer"
-          onClick={async () => handleFollow(uploaderId)}
+          onClick={async (e) => handleFollow(uploaderId)}
         >
           {isLoading && "Loading"}
           {!isLoading && followBtnText ? <> {followBtnText}</> : "..."}
