@@ -29,9 +29,8 @@ export default function FollowButton(props) {
         throw new Error("Failed to fetch data")
       }
       const data = await response.json()
+      console.log(data)
       const following = data.data.following
-      // console.log("follow:", following)
-
       if (isIdAvailable(uploaderId, following)) {
         setfollowBtnText("unfollow")
       } else {
@@ -45,6 +44,7 @@ export default function FollowButton(props) {
 
   const handleFollow = async (userId) => {
     setIsLoading(true)
+    console.log(userId)
     try {
       const dataToSend = {
         _id: userId,
@@ -60,10 +60,15 @@ export default function FollowButton(props) {
       if (!response.ok) {
         throw new Error("Failed to fetch data")
       }
-      const data = await response.json()
-      console.log(data)
-      followText(userId)
 
+      const data = await response.json()
+
+      if (response.ok) {
+        setfollowBtnText((prevText) =>
+          prevText === "follow" ? "unfollow" : "follow"
+        )
+        setIsLoading(false)
+      }
       // window.location.reload()
     } catch (error) {
       console.log(error)
