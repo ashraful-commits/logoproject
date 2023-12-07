@@ -87,7 +87,11 @@ export default function FollowButton(props) {
           onClick={async (e) => handleFollow(uploaderId)}
         >
           {isLoading && "Loading"}
-          {!isLoading && followBtnText ? <> {followBtnText}</> : "..."}
+          {!isLoading && followBtnText && uploaderId ? (
+            <> {followBtnText}</>
+          ) : (
+            "..."
+          )}
         </div>
       ) : (
         <Link href="https://apps.apple.com/us/app/kwiks/id6448708199">

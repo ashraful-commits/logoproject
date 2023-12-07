@@ -147,7 +147,6 @@ export default function SingleUser({ params }) {
             description: responseData.errors,
           })
         }
-        
       } else {
         console.log("profile update failed!")
         toast({
@@ -214,7 +213,7 @@ export default function SingleUser({ params }) {
       {videoPreview && (
         <div className="w-screen  h-screen top-0 left-0 fixed z-[9999] bg-white  ">
           <button
-            className="absolute cursor-pointer z-[99999] bg-opacity-50 hover:bg-opacity-100 transition-all duration-500 ease-in-out rounded-full p-2 top-[50px] left-[50px] bg-white"
+            className="absolute cursor-pointer z-[99999] bg-opacity-50 hover:bg-opacity-100 transition-all duration-500 ease-in-out rounded-full p-2 top-[50px] left-[50px] bg-gray-500"
             onClick={() => setVideoPreview(false)}
           >
             <svg
@@ -222,7 +221,7 @@ export default function SingleUser({ params }) {
               height="25"
               viewBox="0 0 16 16"
               xmlns="http://www.w3.org/2000/svg"
-              fill="#000000"
+              fill="white"
             >
               <path
                 fill-rule="evenodd"
@@ -240,7 +239,7 @@ export default function SingleUser({ params }) {
                     onClick={() =>
                       setVideo(section?.length > 0 && video > 1 ? video - 1 : 0)
                     }
-                    className="bg-white rounded-full bg-opacity-70 p-2 hover:bg-opacity-100 transition-all duration-500 ease-in-out"
+                    className="bg-gray-500 rounded-full bg-opacity-70 p-2 hover:bg-opacity-100 transition-all duration-500 ease-in-out"
                   >
                     <svg
                       width="30"
@@ -251,7 +250,7 @@ export default function SingleUser({ params }) {
                     >
                       <path
                         d="M4 16L12 8L20 16"
-                        stroke="#000000"
+                        stroke="white"
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -262,7 +261,7 @@ export default function SingleUser({ params }) {
                     onClick={() =>
                       setVideo(video < section?.length ? video + 1 : 0)
                     }
-                    className="bg-white rounded-full bg-opacity-70 p-2 hover:bg-opacity-100 transition-all duration-500 ease-in-out"
+                    className="bg-gray-500 rounded-full bg-opacity-70 p-2 hover:bg-opacity-100 transition-all duration-500 ease-in-out"
                   >
                     <svg
                       width="30"
@@ -273,7 +272,7 @@ export default function SingleUser({ params }) {
                     >
                       <path
                         d="M4 8L12 16L20 8"
-                        stroke="#000000"
+                        stroke="white"
                         stroke-width="2"
                         stroke-linecap="round"
                         stroke-linejoin="round"
@@ -303,8 +302,8 @@ export default function SingleUser({ params }) {
                   </div>
                 </>
               </div>
-              <div className="flex flex-col w-[30vw] py-[20px] flex-wrap px-[20px] lg:text-left text-center overflow-hidden">
-                <div className="flex flex-col">
+              <div className="flex flex-col w-[30vw] py-[20px] flex-wrap px-[35px] lg:text-left text-center overflow-hidden">
+                <div className="flex flex-col w-full">
                   <div className="flex gap-5">
                     <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
                       <Link href={`/user${userData?._id}`}></Link>
@@ -371,19 +370,22 @@ export default function SingleUser({ params }) {
                       </ul>
                     </div>
                   </div>
-                  <div className="flex-grow w-full h-[10vh]">
-                    <div className="border rounded-lg my-10 flex items-center w-full">
-                      <span className="inline-block p-2 truncate w-[80%]">{`https://logoproject.vercel.app/user/${userData?._id}`}</span>
+                  <div className="flex-grow w-full h-[10vh] x-[10px]">
+                    <div className="border rounded-lg my-10 flex items-center justify-between w-full">
+                      <span className="inline-block p-2 truncate w-[70%]">{`https://logoproject.vercel.app/user/${userData?._id}`}</span>
                       <button
                         onClick={() => handleCopyLink(userData?._id)}
-                        className=" max-w-[20%] min-w-[80px] bg-green-500 text-white hover:bg-green-700 rounded-lg transition-all duration-500 ease-in-out py-2 px-4"
+                        className=" min-w-[130px] bg-green-500 text-white hover:bg-green-700 rounded-lg transition-all duration-500 ease-in-out py-2 px-4"
                       >
                         {copied}
                       </button>
                     </div>
                   </div>
-                  <div className="flex-grow w-full">
-                    <Tabs defaultValue="Comments" className="w-full border">
+                  <div className="flex-grow w-full h-[60vh] min-h-[60vh] overflow-hidden mt-8">
+                    <Tabs
+                      defaultValue="Comments"
+                      className=" border rounded-md"
+                    >
                       <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="Comments">Comments</TabsTrigger>
                         <TabsTrigger value="Creator">
@@ -394,9 +396,9 @@ export default function SingleUser({ params }) {
                         className="overflow-y-auto w-full"
                         value="Comments"
                       ></TabsContent>
-                      <ScrollArea className="h-full w-full rounded-md border-0 ">
+                      <ScrollArea className=" rounded-md w-full h-[55vh]">
                         <TabsContent
-                          className="overflow-hidden w-full border grid grid-cols-4 "
+                          className="overflow-auto h-full border grid grid-cols-4 "
                           value="Creator"
                         >
                           {section &&
