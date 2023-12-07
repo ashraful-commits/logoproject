@@ -30,7 +30,7 @@ export default function FollowButton(props) {
       }
       const data = await response.json()
       const following = data.data.following
-      console.log("follow:", following)
+      // console.log("follow:", following)
 
       if (isIdAvailable(uploaderId, following)) {
         setfollowBtnText("unfollow")
@@ -61,6 +61,7 @@ export default function FollowButton(props) {
         throw new Error("Failed to fetch data")
       }
       const data = await response.json()
+      console.log(data)
       followText(userId)
 
       // window.location.reload()

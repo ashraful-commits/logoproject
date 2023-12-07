@@ -23,6 +23,7 @@ export default function VideoList() {
 
   const [data, setData] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+ 
   const [error, setError] = useState(null)
   const { data: session } = useSession()
 
@@ -110,6 +111,7 @@ export default function VideoList() {
   }
   return (
     <div>
+      
       {data &&
         data.map((videoList: any, index: any) => (
           <div
@@ -123,7 +125,7 @@ export default function VideoList() {
                   className="cursor-pointer"
                 >
                   <img
-                    className="w-[46px] h-[46px] rounded-full"
+                    className="w-[46px] min-w-[46px] flex h-[46px] rounded-full shrink-0"
                     src={videoList.uploader?.avatar}
                     alt=""
                   />

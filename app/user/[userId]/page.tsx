@@ -1,5 +1,5 @@
 "use client"
-
+import { Skeleton } from "@/components/ui/skeleton"
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { Loader2, Pencil, PlusCircle } from "lucide-react"
@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { ScrollArea } from "@/components/ui/scroll-area"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
@@ -30,9 +31,30 @@ export default function SingleUser({ params }) {
   const userId = params.userId
   const [userData, setUserData] = useState()
   const [videoData, setVideoData] = useState()
+
   const [likedVideo, setlikedVideo] = useState()
   const { data: session } = useSession()
+  const [videoPreview, setVideoPreview] = useState(false)
+  const [video, setVideo] = useState(1)
+  const [videoUrl, setVideoUrl] = useState("")
+  const [section, setSection] = useState(videoData)
+  //=====================================copy link
+  const [isCopied, setIsCopied] = useState(false)
+  const [copied, setCopied] = useState("copy link")
 
+  const handleCopyLink = (id) => {
+    const textarea = document.createElement("textarea")
+    textarea.value = `http://localhost:3000/user/${id}`
+    setCopied("Copied")
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand("copy")
+    document.body.removeChild(textarea)
+    setIsCopied(true)
+    setTimeout(() => {
+      setIsCopied(false), setCopied("Copy link")
+    }, 2000)
+  }
   const fetchData = async () => {
     fetch(`https://kwiks-data.com/user/${userId}`, {
       method: "GET",
@@ -182,9 +204,238 @@ export default function SingleUser({ params }) {
       setLoading(false)
     }
   }
-
+  useEffect(() => {
+    setSection(videoData)
+  }, [videoData])
+  console.log(section)
   return (
     <>
+      {videoPreview && (
+        <div className="w-screen  h-screen top-0 left-0 fixed z-[9999] bg-white  ">
+          <button
+            className="absolute cursor-pointer z-[99999] bg-opacity-50 hover:bg-opacity-100 transition-all duration-500 ease-in-out rounded-full p-2 top-[50px] left-[50px] bg-white"
+            onClick={() => setVideoPreview(false)}
+          >
+            <svg
+              width="25"
+              height="25"
+              viewBox="0 0 16 16"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="#000000"
+            >
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M8 8.707l3.646 3.647.708-.707L8.707 8l3.647-3.646-.707-.708L8 7.293 4.354 3.646l-.707.708L7.293 8l-3.646 3.646.707.708L8 8.707z"
+              />
+            </svg>
+          </button>
+
+          <section className="text-gray-600 body-font w-full h-full flex justify-center items-center">
+            <div className="w-full h-full  grid grid-flow-col justify-center">
+              <div className=" flex w-[70vw] bg-black relative overflow-hidden py-10 justify-center">
+                <div className="flex flex-col gap-10 absolute top-[50%] right-[10%] z-[99999]">
+                  <button
+                    onClick={() =>
+                      setVideo(section?.length > 0 && video > 1 ? video - 1 : 0)
+                    }
+                    className="bg-white rounded-full bg-opacity-70 p-2 hover:bg-opacity-100 transition-all duration-500 ease-in-out"
+                  >
+                    <svg
+                      width="30"
+                      height="30"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 16L12 8L20 16"
+                        stroke="#000000"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() =>
+                      setVideo(video < section?.length ? video + 1 : 0)
+                    }
+                    className="bg-white rounded-full bg-opacity-70 p-2 hover:bg-opacity-100 transition-all duration-500 ease-in-out"
+                  >
+                    <svg
+                      width="30"
+                      height="30"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        d="M4 8L12 16L20 8"
+                        stroke="#000000"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <>
+                  <div className="m-2 shrink-0">
+                    {section?.length > 0 && (
+                      <video
+                        onClick={() => setVideoPreview(true)}
+                        playsInline
+                        controls
+                        className="h-full w-full"
+                      >
+                        <source
+                          src={
+                            section[video]?.playbackUrls["480"][0] ||
+                            "...loading"
+                          }
+                          type="video/mp4"
+                        />
+                        Your browser does not support the video tag.
+                      </video>
+                    )}
+                  </div>
+                </>
+              </div>
+              <div className="flex flex-col w-[30vw] py-[20px] flex-wrap px-[20px] lg:text-left text-center overflow-hidden">
+                <div className="flex flex-col">
+                  <div className="flex gap-5">
+                    <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
+                      <Link href={`/user${userData?._id}`}></Link>
+                      {userData?.avatar ? (
+                        <img
+                          className="w-[130px] rounded-full z-40 border-white border-2"
+                          src={userData && userData?.avatar}
+                        />
+                      ) : (
+                        <img
+                          className="w-[130px] rounded-full z-40 border-white border-2"
+                          src="../user.png"
+                        />
+                      )}
+                    </div>
+                    <div className="flex flex-col items-start">
+                      <Link href={`/user/${userData?._id}`}>
+                        <h5 className="font-[700] text-[18px]">
+                          {userData?.name}
+                        </h5>
+                      </Link>
+                      <span className="text-[14px]">{userData?.bio}</span>
+                    </div>
+                  </div>
+                  <div className="flex-grow w-full h-[10vh]">
+                    <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
+                      {section && section[video]?.caption}
+                    </h2>
+                  </div>
+                  <div className=" flex-grow w-full h-[5vh]">
+                    <div className=" flex">
+                      <ul className="flex gap-5">
+                        <li className="flex items-center gap-2">
+                          <a
+                            className="flex items-center gap-2"
+                            href="https://apps.apple.com/us/app/kwiks/id6448708199"
+                          >
+                            <img src="../loveIcon.svg" alt="" />
+                            <span>
+                              {section && section[video]?.likes?.length}
+                            </span>
+                          </a>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <a
+                            className="flex items-center gap-2"
+                            href="https://apps.apple.com/us/app/kwiks/id6448708199"
+                          >
+                            <img src="../commentIcon.svg" alt="" />
+                            <span>{section && section[video]?.comments}</span>
+                          </a>
+                        </li>
+                        <li className="flex items-center gap-2">
+                          <a
+                            className="flex items-center gap-2"
+                            href="https://apps.apple.com/us/app/kwiks/id6448708199"
+                          >
+                            <img src="../shareIcon.svg" alt="" />
+                            <span>
+                              {section && section[video]?.likes?.length}
+                            </span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div className="flex-grow w-full h-[10vh]">
+                    <div className="border rounded-lg my-10 flex items-center w-full">
+                      <span className="inline-block p-2 truncate w-[80%]">{`http://localhost:3000/user/${userData?._id}`}</span>
+                      <button
+                        onClick={() => handleCopyLink(userData?._id)}
+                        className=" max-w-[20%] min-w-[80px] bg-green-500 text-white hover:bg-green-700 rounded-lg transition-all duration-500 ease-in-out py-2 px-4"
+                      >
+                        {copied}
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex-grow w-full">
+                    <Tabs defaultValue="Comments" className="w-full border">
+                      <TabsList className="grid w-full grid-cols-2">
+                        <TabsTrigger value="Comments">Comments</TabsTrigger>
+                        <TabsTrigger value="Creator">
+                          Creator videos
+                        </TabsTrigger>
+                      </TabsList>
+                      <TabsContent
+                        className="overflow-y-auto w-full"
+                        value="Comments"
+                      ></TabsContent>
+                      <ScrollArea className="h-full w-full rounded-md border-0 ">
+                        <TabsContent
+                          className="overflow-hidden w-full border grid grid-cols-4 "
+                          value="Creator"
+                        >
+                          {section &&
+                            section != null &&
+                            section?.map((videoList, index) => (
+                              <>
+                                <div
+                                  key={index}
+                                  className="m-2 rounded-md max-h-[120px] overflow-hidden bg-black"
+                                >
+                                  <video
+                                    onClick={() => {
+                                      setVideoPreview(true), setVideo(index)
+                                    }}
+                                    playsInline
+                                    controls
+                                    className="h-full w-full"
+                                  >
+                                    <source
+                                      src={videoList.playbackUrls["480"][0]}
+                                      type="video/mp4"
+                                    />
+                                    Your browser does not support the video tag.
+                                  </video>
+                                </div>
+                              </>
+                            ))}
+                          {section?.length == 0 && (
+                            <div className="text-xl mt-4">No Post...</div>
+                          )}
+                        </TabsContent>
+                      </ScrollArea>
+                    </Tabs>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      )}
       <div className="container">
         <CoverPhoto />
         <div className="mt-2 ml-5 flex justify-between w-full">
@@ -249,38 +500,38 @@ export default function SingleUser({ params }) {
             </div>
             <div className="mt-2">
               <h1 className="text-xl font-semibold">
-                {userData ? <> {userData.name}</> : <p>Loading...</p>}
+                {userData ? <> {userData.name}</> : <Skeleton className="w-[100px] h-[20px] bg-gray-100 rounded-md"/>}
               </h1>
               <h4 className="text-sm  text-gray-500">
-                @{userData && userData.username}
+               {userData ?`@ ${userData.username}`:<Skeleton className="w-[100px] mt-2 h-[20px] bg-gray-100 rounded-md"/>}
                 {userData && userData.username == undefined && "username"}{" "}
                 <small>{userData && userData.errors}</small>
               </h4>
-              <p className="pt-2">{userData ? <> {userData.bio}</> : "..."}</p>
+              <p className="pt-2">{userData ? <> {userData?.bio}</> : <Skeleton className="w-[100px] h-[20px] bg-gray-100 rounded-md"/>}</p>
               <div className="mt-10 flex">
                 <h4 className="text-gray-500 text-xl mr-20">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.postCount}</> : "..."}
+                    {userData ? <> {userData.postCount}  Post Count</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
                   </span>
-                  Post Count
+                 
                 </h4>
                 <h4 className="text-gray-500 text-xl mr-20">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.likes}</> : "..."}
+                    {userData ? <> {userData.likes}Likes</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
                   </span>
-                  Likes
+                  
                 </h4>
                 <h4 className="text-gray-500 text-xl mr-20">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.followers}</> : "..."}
+                    {userData ? <> {userData.followers} followers</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
                   </span>
-                  followers
+                  
                 </h4>
                 <h4 className="text-gray-500 text-xl">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.following.length}</> : "..."}
+                    {userData ? <> {userData.following.length} following</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
                   </span>
-                  following
+                  
                 </h4>
               </div>
             </div>
@@ -298,8 +549,12 @@ export default function SingleUser({ params }) {
 
         <Tabs defaultValue="posts">
           <TabsList className="grid grid-cols-2 w-[400px]">
-            <TabsTrigger value="posts">Posts</TabsTrigger>
-            <TabsTrigger value="liked">Liked</TabsTrigger>
+            <TabsTrigger onClick={() => setSection(videoData)} value="posts">
+              Posts
+            </TabsTrigger>
+            <TabsTrigger onClick={() => setSection(likedVideo)} value="liked">
+              Liked
+            </TabsTrigger>
           </TabsList>
           <TabsContent value="posts" className="min-h-[500px]">
             {videoData ? (
@@ -312,7 +567,14 @@ export default function SingleUser({ params }) {
                         key={index}
                         className="m-2 rounded-md max-h-[367.4px] overflow-hidden flex items-center bg-black"
                       >
-                        <video playsInline controls className="h-full w-full">
+                        <video
+                          onClick={() => {
+                            setVideoPreview(true), setVideo(index)
+                          }}
+                          playsInline
+                          controls
+                          className="h-full w-full"
+                        >
                           <source
                             src={videoList.playbackUrls["480"][0]}
                             type="video/mp4"
@@ -327,7 +589,7 @@ export default function SingleUser({ params }) {
                 )}
               </div>
             ) : (
-              <div className="text-center text-xl mt-10">Loading...</div>
+              <div className="text-center 1ext-xl mt-10"><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 rounded-md"/></div>
             )}
           </TabsContent>
           <TabsContent value="liked" className="min-h-[500px]">
@@ -341,7 +603,14 @@ export default function SingleUser({ params }) {
                         key={index}
                         className="m-2 rounded-md max-h-[367.4px] overflow-hidden flex items-center bg-black"
                       >
-                        <video playsInline controls className="h-full w-full">
+                        <video
+                          onClick={() => {
+                            setVideoPreview(true), setVideo(index)
+                          }}
+                          playsInline
+                          controls
+                          className="h-full w-full"
+                        >
                           <source
                             src={likedVideo.playbackUrls["480"][0]}
                             type="video/mp4"
@@ -356,7 +625,7 @@ export default function SingleUser({ params }) {
                 )}
               </div>
             ) : (
-              <div className="text-center text-xl mt-10">Loading...</div>
+              <div className="text-center text-xl mt-10 grid gri1-cols-6 mb-10"><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md"/> <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-201 rounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 1ounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 rounded-md"/></div>
             )}
           </TabsContent>
         </Tabs>

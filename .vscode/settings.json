@@ -1,0 +1,10 @@
+{
+  "notebook.formatOnSave.enabled": true,
+  "audioCues.format": "always",
+  "notebook.formatOnCellExecution": true,
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnType": true,
+  "files.autoSave": "afterDelay",
+  "editor.fontSize": 16
+}
