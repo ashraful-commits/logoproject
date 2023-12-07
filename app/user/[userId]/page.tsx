@@ -1,5 +1,5 @@
 "use client"
-import { Skeleton } from "@/components/ui/skeleton"
+
 import React, { useEffect, useState } from "react"
 import Link from "next/link"
 import { Loader2, Pencil, PlusCircle } from "lucide-react"
@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
@@ -146,7 +147,7 @@ export default function SingleUser({ params }) {
             description: responseData.errors,
           })
         }
-        console.log(responseData.errors)
+        
       } else {
         console.log("profile update failed!")
         toast({
@@ -500,38 +501,64 @@ export default function SingleUser({ params }) {
             </div>
             <div className="mt-2">
               <h1 className="text-xl font-semibold">
-                {userData ? <> {userData.name}</> : <Skeleton className="w-[100px] h-[20px] bg-gray-100 rounded-md"/>}
+                {userData ? (
+                  <> {userData.name}</>
+                ) : (
+                  <Skeleton className="w-[100px] h-[20px] bg-gray-100 rounded-md" />
+                )}
               </h1>
               <h4 className="text-sm  text-gray-500">
-               {userData ?`@ ${userData.username}`:<Skeleton className="w-[100px] mt-2 h-[20px] bg-gray-100 rounded-md"/>}
+                {userData ? (
+                  `@ ${userData.username}`
+                ) : (
+                  <Skeleton className="w-[100px] mt-2 h-[20px] bg-gray-100 rounded-md" />
+                )}
                 {userData && userData.username == undefined && "username"}{" "}
                 <small>{userData && userData.errors}</small>
               </h4>
-              <p className="pt-2">{userData ? <> {userData?.bio}</> : <Skeleton className="w-[100px] h-[20px] bg-gray-100 rounded-md"/>}</p>
+              <p className="pt-2">
+                {userData ? (
+                  <> {userData?.bio}</>
+                ) : (
+                  <Skeleton className="w-[100px] h-[20px] bg-gray-100 rounded-md" />
+                )}
+              </p>
               <div className="mt-10 flex">
                 <h4 className="text-gray-500 text-xl mr-20">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.postCount}  Post Count</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
+                    {userData ? (
+                      <> {userData.postCount} Post Count</>
+                    ) : (
+                      <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md" />
+                    )}
                   </span>
-                 
                 </h4>
                 <h4 className="text-gray-500 text-xl mr-20">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.likes}Likes</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
+                    {userData ? (
+                      <> {userData.likes}Likes</>
+                    ) : (
+                      <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md" />
+                    )}
                   </span>
-                  
                 </h4>
                 <h4 className="text-gray-500 text-xl mr-20">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.followers} followers</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
+                    {userData ? (
+                      <> {userData.followers} followers</>
+                    ) : (
+                      <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md" />
+                    )}
                   </span>
-                  
                 </h4>
                 <h4 className="text-gray-500 text-xl">
                   <span className="mr-2 font-semibold text-black">
-                    {userData ? <> {userData.following.length} following</> : <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md"/>}
+                    {userData ? (
+                      <> {userData.following.length} following</>
+                    ) : (
+                      <Skeleton className="w-[100px] h-[30px] bg-gray-200 rounded-md" />
+                    )}
                   </span>
-                  
                 </h4>
               </div>
             </div>
@@ -589,7 +616,9 @@ export default function SingleUser({ params }) {
                 )}
               </div>
             ) : (
-              <div className="text-center 1ext-xl mt-10"><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 rounded-md"/></div>
+              <div className="text-center 1ext-xl mt-10">
+                <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 rounded-md" />
+              </div>
             )}
           </TabsContent>
           <TabsContent value="liked" className="min-h-[500px]">
@@ -625,7 +654,14 @@ export default function SingleUser({ params }) {
                 )}
               </div>
             ) : (
-              <div className="text-center text-xl mt-10 grid gri1-cols-6 mb-10"><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md"/> <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-201 rounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 1ounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md"/><Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 rounded-md"/></div>
+              <div className="text-center text-xl mt-10 grid gri1-cols-6 mb-10">
+                <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md" />{" "}
+                <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-201 rounded-md" />
+                <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 1ounded-md" />
+                <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md" />
+                <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-100 rounded-md" />
+                <Skeleton className="max-h-[367.4px] h-[360px] w-[200px] bg-gray-200 rounded-md" />
+              </div>
             )}
           </TabsContent>
         </Tabs>
