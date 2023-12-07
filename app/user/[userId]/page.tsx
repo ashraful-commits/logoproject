@@ -45,7 +45,7 @@ export default function SingleUser({ params }) {
 
   const handleCopyLink = (id) => {
     const textarea = document.createElement("textarea")
-    textarea.value = `http://localhost:3000/user/${id}`
+    textarea.value = `https://logoproject.vercel.app/user/${id}`
     setCopied("Copied")
     document.body.appendChild(textarea)
     textarea.select()
@@ -373,7 +373,7 @@ export default function SingleUser({ params }) {
                   </div>
                   <div className="flex-grow w-full h-[10vh]">
                     <div className="border rounded-lg my-10 flex items-center w-full">
-                      <span className="inline-block p-2 truncate w-[80%]">{`http://localhost:3000/user/${userData?._id}`}</span>
+                      <span className="inline-block p-2 truncate w-[80%]">{`https://logoproject.vercel.app/user/${userData?._id}`}</span>
                       <button
                         onClick={() => handleCopyLink(userData?._id)}
                         className=" max-w-[20%] min-w-[80px] bg-green-500 text-white hover:bg-green-700 rounded-lg transition-all duration-500 ease-in-out py-2 px-4"

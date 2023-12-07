@@ -45,7 +45,7 @@ export default function Login() {
       }
       console.log(credential)
       axios
-        .post(`https://kwiks-data.com/user/verify`, credential)
+        .post(`https://logoproject.vercel.app/user/verify`, credential)
         .then(async (response) => {
           try {
             const jwtToken = response.data.data
@@ -84,7 +84,7 @@ export default function Login() {
         email: email,
       }
       axios
-        .post(`https://kwiks-data.com/user/signin`, credential)
+        .post(`https://logoproject.vercel.app/user/signin`, credential)
         .then((response) => {
           console.log(response)
           setLoading(false)
