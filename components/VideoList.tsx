@@ -231,7 +231,12 @@ useEffect(() => {
                     />
                     <div className="reaction-wrap flex items-end pl-5">
                       <ul className="[&>li]:pt-5 [&>li]:text-[11px] [&>li]:text-center">
-                        
+                      <li>
+                          <Link href="https://apps.apple.com/us/app/kwiks/id6448708199">
+                            <img src="./loveIcon.svg" alt="" />
+                            <span>{videoList.likes.length}</span>
+                          </Link>
+                        </li>
                         <li>
                           <Link href="https://apps.apple.com/us/app/kwiks/id6448708199">
                             <img src="./commentIcon.svg" alt="" />

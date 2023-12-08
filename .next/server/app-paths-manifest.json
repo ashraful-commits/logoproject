@@ -1,5 +1,8 @@
 {
-  "/not-found": "app/not-found.js",
   "/moderation/analytics/page": "app/moderation/analytics/page.js",
+  "/moderation/suspensions/page": "app/moderation/suspensions/page.js",
+  "/moderation/page": "app/moderation/page.js",
+  "/moderation/deprioritize/page": "app/moderation/deprioritize/page.js",
+  "/page": "app/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
 }
