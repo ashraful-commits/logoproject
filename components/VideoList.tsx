@@ -221,7 +221,7 @@ useEffect(() => {
                       </div>
                     </div>
                     <div className="followBtn max-sm:hidden">
-                      <FollowButton uploaderId={videoList.uploader._id} />
+                      <FollowButton uploaderId={videoList?.uploader?._id} uploaderName={videoList?.uploader?.name} />
                     </div>
                   </div>
                   <div className="mt-5 flex items-end">

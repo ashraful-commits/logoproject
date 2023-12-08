@@ -10,6 +10,8 @@ export default function FollowButton(props) {
   const { data: session } = useSession()
   const userToken = session?.user?.token
   const uploaderId = props.uploaderId
+ 
+const uploaderName = props.uploaderName;
   const { toast } = useToast()
 
   const [isLoading, setIsLoading] = useState(false)
@@ -68,6 +70,9 @@ export default function FollowButton(props) {
           prevText === "follow" ? "unfollow" : "follow"
         )
         setIsLoading(false)
+        toast({
+          title:`Your now ${followBtnText} ${uploaderName}`
+        })
       }
       // window.location.reload()
     } catch (error) {
