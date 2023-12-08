@@ -50,7 +50,7 @@ export default function Deprioritize(props) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="text-white rounded-full mb-4 cursor-pointer bg-red-600 py-3 px-7 hover:bg-red-600 min-w-[180px]">
+      <AlertDialogTrigger className="text-white rounded-sm mb-4 cursor-pointer bg-red-600  px-10 py-[5px]  hover:bg-red-600 min-w-[80px]">
         <span className="font-semibold text-[16px]">Deprioritize</span>
       </AlertDialogTrigger>
       <AlertDialogContent>

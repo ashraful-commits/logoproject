@@ -13,7 +13,7 @@ import Prioritize from "../Buttons/Prioritize"
 import Suspend from "../Buttons/Suspend"
 import Unsuspend from "../Buttons/Unsuspend"
 import SideMenu from "../SideMenu"
-
+import Link from "next/link"
 export default function Moderation() {
   const { toast } = useToast()
   const [isLoading, setIsLoading] = useState(true)
@@ -23,7 +23,8 @@ export default function Moderation() {
   const [Reason, setReason] = useState("null")
   const [UntillDate, setUntillDate] = useState()
   const [declineReason, setdeclineReason] = useState()
-
+  // https://kwiks-data.com/video/moderation?skip=0&limit=10
+  // https://kwiks-data.com/user/suspended?skip=0&limit=10
   const fetchData = async () => {
     fetch("https://kwiks-data.com/user/suspended?skip=0&limit=10", {
       method: "GET",
@@ -36,9 +37,10 @@ export default function Moderation() {
     })
       .then((res) => res.json())
       .then((data) => {
+       
         setIsLoading(false)
         setuserData(data.data)
-        // console.log(data)
+        console.log({"hi":data})
         return
       })
   }
@@ -151,18 +153,60 @@ export default function Moderation() {
         <SideMenu />
         <div className="lg:w-9/12 w-full max-md:w-full mt-5">
           <section className="max-md:pl-5 max-md:pr-5 container grid items-center lg:gap-6 pb-8">
-            <div className="flex max-w-[980px] flex-col items-start gap-2 bg-white text-black">
-              {userData &&
+            <div className="flex max-w-[980px] w-full grid grid-cols-3 gap-5 bg-white text-black">
+              {userData &&userData?.length>0 ?
                 // @ts-ignore
-                userData.map((videoList, index) => (
+                userData?.map((videoList, index) => (
                   <div
                     key={index}
-                    className="mb-[20px] relative max-lg:flex max-lg:justify-center flex justify-between w-[500px] items-center"
+                    className=" border rounded-lg h-[450px] overflow-hidden relative max-lg:flex max-lg:justify-center w-full"
                   >
-                    <Userinfo data={videoList} />
-                    <Unsuspend data={videoList._id} />
+                   
+                      <div className="flex justify-between  border-b  ">
+                        <div className=" w-full">
+
+                          <div className="flex px-3 gap-x-3 mt-2">
+                       <Link href={`http://localhost:3000/user/${videoList?._id}`}>   <div
+                            onClick={() => checkLogin(videoList.uploader._id)}
+                            className="cursor-pointer w-[46px] h-[46px] overflow-hidden rounded-full shrink-0"
+                          >
+                            <img
+                              className=" shrink-0 w-full h-full"
+                              src={videoList.avatar}
+                              alt=""
+                            />
+                           
+                          </div></Link>
+                          <div>
+                               <h4
+                              className="font-bold cursor-pointer"
+                              onClick={() => checkLogin(videoList.uploader._id)}
+                            >
+                              {videoList?.name}
+                            </h4>
+                            <h6
+                              className="text-[12px] text-gray-300 cursor-pointer"
+                              onClick={() => checkLogin(videoList.uploader._id)}
+                            >
+                              @{videoList?.username}
+                            </h6>
+                            </div>
+                           <div className="ml-auto"> <Unsuspend data={videoList._id} /></div>
+                          </div>
+                         
+                          <div className=" flex justify-center items-start">
+                            <div className="mt-5 w-full h-[382px] overflow-hidden py-5 flex justify-center items-center flex-col ">
+                             {/* {videoList?.playbackUrls["480"][0]&& <video controls className="w-full h-full" src={videoList?.playbackUrls["480"][0]}></video>}
+                             {videoList?.playbackUrls["720"][0]&& <video controls className="w-full h-full" src={videoList?.playbackUrls["720"][0]}></video>}
+                             {videoList?.playbackUrls["1080"][0]&& <video controls className="w-full h-full" src={videoList?.playbackUrls["1080"][0]}></video>} */}
+                           
+                             <p>Account Suspended</p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                   </div>
-                ))}
+                )):<p className="m-auto">No post</p>}
             </div>
           </section>
         </div>
@@ -170,3 +214,7 @@ export default function Moderation() {
     </>
   )
 }
+
+
+
+  

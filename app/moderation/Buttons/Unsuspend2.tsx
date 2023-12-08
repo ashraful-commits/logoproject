@@ -50,7 +50,7 @@ export default function Unsuspend(props) {
     <div>
       {videoList.uploader.accountStatus == "suspended" && (
         <Button
-          className="text-white rounded-full mb-4 cursor-pointer bg-red-600 py-6 px-7 hover:bg-red-600 min-w-[180px]"
+          className="text-white rounded-sm mb-4 cursor-pointer bg-red-600  px-10 py-[5px]  hover:bg-red-600 min-w-[80px]"
           onClick={() => handlesuspendClick(videoList.uploader._id, "normal")}
         >
           <span className="font-semibold text-[16px]">Unsuspend</span>

@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useSession } from "next-auth/react"
 
 import IsLoading from "@/components/IsLoading"
@@ -16,8 +16,27 @@ import SideMenu from "./SideMenu"
 export default function Moderation() {
   const [isLoading, setIsLoading] = useState(true)
   const [userData, setuserData] = useState()
+  console.log(userData)
   const { data: session } = useSession()
+  const [dropId, setDropId] = useState()
+  const [dropDownMenu, setDropdownMenu] = useState(false)
+  const dropdownRef = useRef()
+  const dropRef = useRef()
+  const handleDropdown = (id) => {
+    setDropdownMenu(!dropDownMenu)
+    setDropId(id)
+  }
+  //=======================================dropdown menu
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropRef.current && !dropdownRef.current.contains(event.target)) {
+      setDropdownMenu(false)
+    }
+  }
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside)
 
+    return () => document.removeEventListener("click", handleClickOutside)
+  }, [])
   const fetchData = async () => {
     fetch("https://kwiks-data.com/video/moderation?skip=0&limit=99", {
       method: "GET",
@@ -55,64 +74,132 @@ export default function Moderation() {
   }
   return (
     <>
-      <div className="max-md:pl-0 max-md:pr-0 container flex relative justify-center lg:justify-between mt-16">
+      <div
+        ref={dropdownRef}
+        className="max-md:pl-0 max-md:pr-0 container flex relative justify-center lg:justify-between mt-16"
+      >
         <SideMenu />
         <div className="lg:w-9/12 w-full max-md:w-full">
-          <section className="max-md:pl-5 max-md:pr-5 container grid items-center lg:gap-6 pb-8">
-            <div className="flex max-w-[980px] flex-col items-start gap-2 bg-white text-black">
+          <section className="max-md:pl-5 max-md:pr-5 mt-10 container flex items-center lg:gap-6 pb-8">
+            <div className=" max-w-[980px] w-full  grid grid-cols-3 items-start gap-5 bg-white text-black">
               {userData &&
                 // @ts-ignore
                 userData.map((videoList, index) => (
                   <div
                     key={index}
-                    className="mb-[20px] relative max-lg:flex max-lg:justify-center w-full"
+                    className=" border rounded-lg h-[450px] overflow-hidden relative max-lg:flex max-lg:justify-center w-full "
                   >
                     {videoList.status != "deprioritized" && (
-                      <div className="flex justify-between w-8/12 border-b pb-10 mt-5 max-lg:w-10/12 max-md:w-full">
-                        <div className="flex items-start">
-                          <div
-                            onClick={() => checkLogin(videoList.uploader._id)}
-                            className="cursor-pointer"
-                          >
-                            <img
-                              className="w-[46px] h-[46px] rounded-full"
-                              src={videoList.uploader?.avatar}
-                              alt=""
-                            />
-                          </div>
-                          <div className="ml-2">
-                            <h4
-                              className="font-bold cursor-pointer"
+                      <div className="flex justify-between  border-b  ">
+                        <div className=" w-full">
+                          <div className="flex px-3 gap-x-3 mt-2">
+                            <div
                               onClick={() => checkLogin(videoList.uploader._id)}
+                              className="cursor-pointer w-[46px] h-[46px] overflow-hidden rounded-full shrink-0"
                             >
-                              {videoList.uploader?.name}
-                            </h4>
-                            <h6
-                              className="text-[12px] text-gray-300 cursor-pointer"
-                              onClick={() => checkLogin(videoList.uploader._id)}
-                            >
-                              @{videoList.uploader?.username}
-                            </h6>
-                            <div className="caaption mt-4">
-                              <p>{videoList.caption}</p>
+                              <img
+                                className=" shrink-0 w-full h-full"
+                                src={videoList.uploader?.avatar}
+                                alt=""
+                              />
                             </div>
-                            <div className="mt-5 flex items-end max-md:flex-col max-md:items-center">
-                              <Player src={videoList.playbackUrls["480"][0]} />
-                              <div className="followBtn flex flex-col justify-center ml-5 max-md:mt-5">
-                                {/* Approve Button */}
-                                <Approve videoId={videoList._id} />
+                            <div>
+                              <h4
+                                className="font-bold cursor-pointer"
+                                onClick={() =>
+                                  checkLogin(videoList.uploader._id)
+                                }
+                              >
+                                {videoList.uploader?.name}
+                              </h4>
+                              <h6
+                                className="text-[12px] text-gray-300 cursor-pointer"
+                                onClick={() =>
+                                  checkLogin(videoList.uploader._id)
+                                }
+                              >
+                                @{videoList.uploader?.username}
+                              </h6>
+                            </div>
+                            <button
+                              onClick={() =>
+                                handleDropdown(videoList?.uploader?._id)
+                              }
+                              className="ml-auto"
+                            >
+                              {" "}
+                              <svg
+                                version="1.1"
+                                id="Layer_1"
+                                xmlns="http://www.w3.org/2000/svg"
+                                xmlnsXlink="http://www.w3.org/1999/xlink"
+                                x="0px"
+                                y="0px"
+                                width={20}
+                                height={20}
+                                viewBox="0 0 293.5 293.5"
+                                xmlSpace="preserve"
+                              >
+                                <g>
+                                  <g>
+                                    <g>
+                                      <path
+                                        d="M171.603,0h-49.705c-8.612,0-15.618,7.006-15.618,15.618v49.705c0,8.612,7.006,15.618,15.618,15.618h49.705
+                                        c8.612,0,15.618-7.006,15.618-15.618V15.618C187.221,7.006,180.215,0,171.603,0z"
+                                      />
+                                      <path
+                                        d="M171.603,106.279h-49.705c-8.612,0-15.618,7.006-15.618,15.618v49.705c0,8.612,7.006,15.618,15.618,15.618h49.705
+                                        c8.612,0,15.618-7.006,15.618-15.618v-49.705C187.221,113.285,180.215,106.279,171.603,106.279z"
+                                      />
+                                      <path
+                                        d="M171.603,212.559h-49.705c-8.612,0-15.618,7.006-15.618,15.618v49.705c0,8.612,7.006,15.618,15.618,15.618h49.705
+                                        c8.612,0,15.618-7.006,15.618-15.618v-49.705C187.221,219.564,180.215,212.559,171.603,212.559z"
+                                      />
+                                    </g>
+                                  </g>
+                                </g>
+                              </svg>
+                            </button>
+                          </div>
 
-                                <Decline videoList={videoList} />
+                          <div className=" flex justify-center items-start">
+                            <div className="mt-5 w-full h-[382px] overflow-hidden py-5 flex justify-center items-center flex-col ">
+                            {(videoList?.playbackUrls["480"] && videoList.playbackUrls["480"][0]) ? (
+                                        <video controls className="w-full h-full" src={videoList.playbackUrls["480"][0]}></video>
+                                      ) : (
+                                        (videoList?.playbackUrls["720"] && videoList.playbackUrls["720"][0]) ? (
+                                          <video controls className="w-full h-full" src={videoList.playbackUrls["720"][0]}></video>
+                                        ) : (
+                                          (videoList?.playbackUrls["1080"] && videoList.playbackUrls["1080"][0]) && (
+                                            <video controls className="w-full h-full" src={videoList.playbackUrls["1080"][0]}></video>
+                                          )
+                                        )
+                                      )}
+                              {dropDownMenu &&
+                                dropId === videoList?.uploader?._id && (
+                                  <div ref={dropRef} className=" absolute top-16 bg-white rounded-md border shadow-2xl p-3 right-1 flex flex-col justify-center items-center ml-5 max-md:mt-5">
+                                    <span
+                                      style={{
+                                        clipPath:
+                                          "polygon(51% 12%, 0% 100%, 100% 100%)",
+                                      }}
+                                      className="block w-8 h-8   shadow-2xl border bg-white absolute -top-5 right-2"
+                                    ></span>
+                                    {/* Approve Button */}
+                                    <Approve ref={dropRef} videoId={videoList._id} />
 
-                                {/* Suspend button */}
-                                <Suspend videoList={videoList} />
+                                    <Decline ref={dropRef} videoList={videoList} />
 
-                                {/* Deprioritize button */}
-                                <Deprioritize videoId={videoList._id} />
+                                    {/* Suspend button */}
+                                    <Suspend ref={dropRef} videoList={videoList} />
 
-                                {/* Unsuspand button */}
-                                <Unsuspend videoList={videoList} />
-                              </div>
+                                    {/* Deprioritize button */}
+                                    <Deprioritize ref={dropRef}  videoId={videoList._id} />
+
+                                    {/* Unsuspand button */}
+                                    <Unsuspend ref={dropRef} videoList={videoList} />
+                                  </div>
+                                )}
                             </div>
                           </div>
                         </div>

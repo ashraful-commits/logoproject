@@ -56,7 +56,7 @@ export default function Decline(props) {
   return (
     <AlertDialog>
       <AlertDialogTrigger>
-        <button className="text-white rounded-full mb-4 font-semibold cursor-pointer bg-red-600 py-3 px-7 min-w-[180px]">
+        <button className="text-white rounded-sm mb-4 font-semibold cursor-pointer bg-red-600  px-10 py-[5px] min-w-[80px]">
           Decline
         </button>
       </AlertDialogTrigger>

@@ -64,8 +64,8 @@ export default function Suspend(props) {
     <>
       {videoList.uploader.accountStatus == "normal" && (
         <Dialog>
-          <DialogTrigger className="text-white rounded-full mb-4 cursor-pointer bg-red-600 py-3 px-7 hover:bg-red-600 min-w-[180px]">
-            <span className="font-semibold text-[16px]">Suspend</span>
+          <DialogTrigger className="text-white rounded-sm mb-4 cursor-pointer bg-red-600  px-4 py-2  hover:bg-red-600 min-w-[60px]">
+            <span className="font-semibold text-[14px]">Suspend</span>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>

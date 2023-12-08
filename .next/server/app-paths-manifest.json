@@ -1,5 +1,8 @@
 {
   "/page": "app/page.js",
+  "/moderation/page": "app/moderation/page.js",
+  "/moderation/deprioritize/page": "app/moderation/deprioritize/page.js",
+  "/moderation/suspensions/page": "app/moderation/suspensions/page.js",
   "/user/[userId]/page": "app/user/[userId]/page.js",
   "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js"
 }

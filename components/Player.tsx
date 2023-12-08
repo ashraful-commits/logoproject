@@ -21,7 +21,7 @@ const VideoPlayer = (props) => {
 
   return (
     <div ref={ref}>
-      <ReactPlayer
+      <ReactPlayer 
         className="react-player"
         ref={videoRef}
         url={source}

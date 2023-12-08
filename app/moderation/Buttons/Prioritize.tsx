@@ -49,7 +49,7 @@ export default function Prioritize(props) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="getBtn font-semibold cursor-pointer mb-4 min-w-[180px]">
+      <AlertDialogTrigger className="getBtn !rounded-sm font-semibold cursor-pointer mb-4  px-10 py-[5px]  min-w-[80px]">
         <span className="font-semibold text-[16px]">Prioritize</span>
       </AlertDialogTrigger>
       <AlertDialogContent>

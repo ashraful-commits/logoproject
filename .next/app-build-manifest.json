@@ -1,10 +1,14 @@
 {
   "pages": {
-    "/page": [
+    "/user/[userId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/page.css",
-      "static/chunks/app/page.js"
+      "static/chunks/app/user/[userId]/page.js"
+    ],
+    "/moderation/suspensions/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/moderation/suspensions/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -12,10 +16,21 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/user/[userId]/page": [
+    "/moderation/deprioritize/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/user/[userId]/page.js"
+      "static/chunks/app/moderation/deprioritize/page.js"
+    ],
+    "/moderation/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/moderation/page.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/page.css",
+      "static/chunks/app/page.js"
     ]
   }
 }

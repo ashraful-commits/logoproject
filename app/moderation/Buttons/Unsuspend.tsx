@@ -48,10 +48,10 @@ export default function Unsuspend(props) {
   return (
     <div>
       <Button
-        className="text-white rounded-full mb-4 cursor-pointer bg-red-600 py-6 px-7 hover:bg-red-600 min-w-[180px]"
+        className="text-white rounded-sm mb-4 cursor-pointer bg-red-600  px-3 py-[5px]  hover:bg-red-600 min-w-[60px]"
         onClick={() => handlesuspendClick(userId, "normal")}
       >
-        <span className="font-semibold text-[16px]">Unsuspend</span>
+        <span className="font-semibold text-[14px]">Unsuspend</span>
       </Button>
     </div>
   )

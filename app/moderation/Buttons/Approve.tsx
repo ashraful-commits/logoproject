@@ -49,7 +49,7 @@ export default function Approve(props) {
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="getBtn font-semibold cursor-pointer mb-4 min-w-[180px]">
+      <AlertDialogTrigger className="getBtn font-semibold cursor-pointer rounded-sm mb-4 min-w-[70px]">
         <span className="font-semibold text-[16px]">Approve</span>
       </AlertDialogTrigger>
       <AlertDialogContent>

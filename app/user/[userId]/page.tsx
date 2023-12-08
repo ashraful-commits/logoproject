@@ -26,7 +26,7 @@ import Player from "@/components/Player"
 import CoverPhoto from "@/components/profile/CoverPhoto"
 import EditProfileBtn from "@/components/profile/EditProfileBtn"
 import ModerationBtn from "@/components/profile/ModerationBtn"
-
+import VideoPlayer from "@/components/Player"
 export default function SingleUser({ params }) {
   const { toast } = useToast()
   const userId = params.userId
@@ -207,11 +207,11 @@ export default function SingleUser({ params }) {
   useEffect(() => {
     setSection(videoData)
   }, [videoData])
-  console.log(section)
+
   return (
     <>
       {videoPreview && (
-        <div className="w-screen  h-screen top-0 left-0 fixed z-[9999] bg-white  ">
+        <div className="w-screen lg:h-screen xl:h-screen md:h-screen h-auto top-0 left-0 fixed z-[9999] bg-white  ">
           <button
             className="absolute cursor-pointer z-[99999] bg-opacity-50 hover:bg-opacity-100 transition-all duration-500 ease-in-out rounded-full p-2 top-[50px] left-[50px] bg-gray-500"
             onClick={() => setVideoPreview(false)}
@@ -232,8 +232,8 @@ export default function SingleUser({ params }) {
           </button>
 
           <section className="text-gray-600 body-font w-full h-full flex justify-center items-center">
-            <div className="w-full h-full  grid grid-flow-col justify-center">
-              <div className=" flex w-[70vw] bg-black relative overflow-hidden py-10 justify-center">
+            <div className="w-full h-full  grid xl:grid-flow-col lg:grid-flow-col md:grid-flow-col grid-flow-row justify-center overflow-y-scroll">
+              <div className=" flex md:w-[70vw] lg:w-[70vw] xl:w-[70vw] w-[100vw] bg-black relative overflow-hidden py-10 m-auto lg:min-h-screen md:min-h-screen xl:min-h-screen h-screen justify-center">
                 <div className="flex flex-col gap-10 absolute top-[50%] right-[10%] z-[99999]">
                   <button
                     onClick={() =>
@@ -280,41 +280,32 @@ export default function SingleUser({ params }) {
                     </svg>
                   </button>
                 </div>
-                <>
-                  <div className="m-2 shrink-0">
+                <div calssName="my-auto w-full h-full flex justify-center items-center">
+                  <div className="m-2 min-w-[640px] overflow-hidden h-full shrink-0 flex justify-center items-center">
                     {section?.length > 0 && (
-                      <video
-                        onClick={() => setVideoPreview(true)}
-                        playsInline
-                        controls
-                        className="h-full w-full"
-                      >
-                        <source
-                          src={
-                            section[video]?.playbackUrls["480"][0] ||
-                            "...loading"
-                          }
-                          type="video/mp4"
-                        />
-                        Your browser does not support the video tag.
-                      </video>
+
+                      <VideoPlayer  onClick={() => setVideoPreview(true)} src={
+                              section[video]?.playbackUrls["480"][0] ||
+                              "...loading"
+                            }/>
+                     
                     )}
                   </div>
-                </>
+                </div>
               </div>
-              <div className="flex flex-col w-[30vw] py-[20px] flex-wrap px-[35px] lg:text-left text-center overflow-hidden">
+              <div className="flex flex-col md:w-[30vw] lg:w-[30vw] xl:w-[30vw] w-[100vw] py-[20px] flex-wrap px-[35px] h-screen lg:text-left text-center overflow-hidden">
                 <div className="flex flex-col w-full">
                   <div className="flex gap-5">
-                    <div className="w-12 h-12 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
+                    <div className=" h-12 w-12 shrink-0 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
                       <Link href={`/user${userData?._id}`}></Link>
                       {userData?.avatar ? (
                         <img
-                          className="w-[130px] rounded-full z-40 border-white border-2"
+                          className="w-[130px]  shrink-0 rounded-full z-40 border-white border-2"
                           src={userData && userData?.avatar}
                         />
                       ) : (
                         <img
-                          className="w-[130px] rounded-full z-40 border-white border-2"
+                          className="w-[130px]  rounded-full z-40 border-white border-2"
                           src="../user.png"
                         />
                       )}
@@ -398,7 +389,7 @@ export default function SingleUser({ params }) {
                       ></TabsContent>
                       <ScrollArea className=" rounded-md w-full h-[55vh]">
                         <TabsContent
-                          className="overflow-auto h-full border grid grid-cols-4 "
+                          className="overflow-auto h-full border grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2"
                           value="Creator"
                         >
                           {section &&
@@ -448,13 +439,13 @@ export default function SingleUser({ params }) {
                 <>
                   {userData && userData.avatar != undefined && (
                     <img
-                      className="w-[130px] rounded-full ml-10 -mt-14 z-40 border-white border-2"
+                      className="w-[130px] h-[130px] rounded-full bg-white shrink-0 ml-10 -mt-14 z-40 border-white border-2"
                       src={userData && userData.avatar}
                     />
                   )}
                   {userData && userData.avatar == undefined && (
                     <img
-                      className="w-[130px] rounded-full ml-10 -mt-14 z-40 border-white border-2"
+                      className="w-[130px] h-[130px] rounded-full bg-white shrink-0 ml-10 -mt-14 z-40 border-white border-2"
                       src="../user.png"
                     />
                   )}
@@ -596,6 +587,7 @@ export default function SingleUser({ params }) {
                         key={index}
                         className="m-2 rounded-md max-h-[367.4px] overflow-hidden flex items-center bg-black"
                       >
+               
                         <video
                           onClick={() => {
                             setVideoPreview(true), setVideo(index)
