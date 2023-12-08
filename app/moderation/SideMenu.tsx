@@ -14,19 +14,19 @@ const menuItems = [
   },
   {
     name: "Analytics",
-    url: "#",
+    url: "/moderation/analytics",
   },
   {
     name: "Messages",
-    url: "#",
+   url: "/moderation/messages",
   },
   {
     name: "Bans",
-    url: "#",
+   url: "/moderation/bans",
   },
   {
     name: "Deletes",
-    url: "#",
+   url: "/moderation/deletes",
   },
 ]
 
