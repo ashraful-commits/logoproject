@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from "react"
 import { useSession } from "next-auth/react"
 
 import IsLoading from "@/components/IsLoading"
-import Player from "@/components/Player"
 
 import Approve from "./Buttons/Approve"
 import Decline from "./Buttons/Decline"
@@ -37,6 +36,8 @@ export default function Moderation() {
 
     return () => document.removeEventListener("click", handleClickOutside)
   }, [])
+
+  //======================data fatch
   const fetchData = async () => {
     fetch("https://kwiks-data.com/video/moderation?skip=0&limit=99", {
       method: "GET",
@@ -59,7 +60,7 @@ export default function Moderation() {
   useEffect(() => {
     fetchData()
   }, [session])
-
+//================================== chack login
   const checkLogin = (id) => {
     const url = "/user/" + id
     if (session?.user?.token) {
@@ -68,10 +69,11 @@ export default function Moderation() {
     } else {
     }
   }
-
+//=================================loading
   if (isLoading) {
     return <IsLoading />
   }
+  console.log(userData)
   return (
     <>
       <div

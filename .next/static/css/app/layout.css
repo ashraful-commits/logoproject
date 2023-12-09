@@ -1261,6 +1261,9 @@ video {
 .w-\[340px\] {
   width: 340px;
 }
+.w-\[70px\] {
+  width: 70px;
+}
 .min-w-\[130px\] {
   min-width: 130px;
 }
@@ -1471,6 +1474,9 @@ video {
 }
 .gap-y-5 {
   row-gap: 1.25rem;
+}
+.gap-y-3 {
+  row-gap: 0.75rem;
 }
 .space-x-1 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-x-reverse: 0;

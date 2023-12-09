@@ -108,7 +108,7 @@ useEffect(() => {
               <Skeleton className="h-4 w-[100px]" />
             </div>
             <div>
-            <Skeleton className="h-8 w-[100px]" />
+            <Skeleton className="h-8 w-[70px] rounded-full" />
           </div>
           </div>
         </div>
@@ -116,7 +116,11 @@ useEffect(() => {
             <Skeleton className="h-[30px] w-[300px] mb-3" />
         <div className="flex items-end gap-x-5 w-full">
             <Skeleton className="h-[520px] w-[500px]" />
-            <Skeleton className="h-[200px] w-[40px]" />
+            <div className="flex flex-col gap-y-3">
+              <Skeleton className="h-[60px] w-[40px]" />
+              <Skeleton className="h-[60px] w-[40px]" />
+              <Skeleton className="h-[60px] w-[40px]" />
+            </div>
           </div>
         </div>
         {/* part 2  */}
@@ -128,7 +132,7 @@ useEffect(() => {
               <Skeleton className="h-4 w-[100px]" />
             </div>
             <div>
-            <Skeleton className="h-8 w-[100px]" />
+            <Skeleton className="h-8 w-[70px] rounded-full" />
           </div>
           </div>
         </div>
@@ -136,7 +140,11 @@ useEffect(() => {
             <Skeleton className="h-[30px] w-[300px] mb-3" />
         <div className="flex items-end gap-x-5 w-full">
             <Skeleton className="h-[520px] w-[500px]" />
-            <Skeleton className="h-[200px] w-[40px]" />
+            <div className="flex flex-col gap-y-3">
+              <Skeleton className="h-[60px] w-[40px]" />
+              <Skeleton className="h-[60px] w-[40px]" />
+              <Skeleton className="h-[60px] w-[40px]" />
+            </div>
           </div>
         </div>
         
