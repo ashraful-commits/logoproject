@@ -20,13 +20,14 @@ const VideoPlayer = (props) => {
   }, [inView])
 
   return (
-    <div ref={ref}>
+    <div className="overflow-hidden" ref={ref}>
       <ReactPlayer 
         className="react-player"
         ref={videoRef}
         url={source}
         controls
         playing={inView}
+        
       />
     </div>
   )

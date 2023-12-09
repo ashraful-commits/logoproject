@@ -8,50 +8,13 @@ import FollowButton from "./FollowButton"
 import { useToast } from "./ui/use-toast"
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import {
-  EmailShareButton,
   FacebookShareButton,
-  GabShareButton,
-  HatenaShareButton,
-  InstapaperShareButton,
-  LineShareButton,
-  LinkedinShareButton,
-  LivejournalShareButton,
-  MailruShareButton,
-  OKShareButton,
-  PinterestShareButton,
-  PocketShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
   TwitterShareButton,
-  ViberShareButton,
-  VKShareButton,
   WhatsappShareButton,
-  WorkplaceShareButton,
 } from "react-share";
 import {
-  EmailIcon,
   FacebookIcon,
-  FacebookMessengerIcon,
-  GabIcon,
-  HatenaIcon,
-  InstapaperIcon,
-  LineIcon,
-  LinkedinIcon,
-  LivejournalIcon,
-  MailruIcon,
-  OKIcon,
-  PinterestIcon,
-  PocketIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  ViberIcon,
-  VKIcon,
-  WeiboIcon,
   WhatsappIcon,
-  WorkplaceIcon,
   XIcon,
 } from "react-share";
 export default function VideoList() {
@@ -68,7 +31,6 @@ const {toast} = useToast()
   const [isLoading, setIsLoading] = useState(true)
   const [dropDown, setDropdown] = useState(false)
   const [dropId, setDropId] = useState(null)
- console.log(dropDown)
   const [error, setError] = useState(null)
   const { data: session } = useSession()
   const dropdownRef = useRef(null);
@@ -111,7 +73,6 @@ const {toast} = useToast()
 
 //================================handle dropdown
 const handleDropdown=(id)=>{
- 
   setDropdown(!dropDown)
   setDropId(id)
 }
@@ -127,7 +88,6 @@ useEffect(() => {
 
   return () => document.removeEventListener('click', handleClickOutside)
 }, []);
-
   const checkLogin = (id) => {
     const url = "/user/" + id
     if (session?.user?.token) {
@@ -136,7 +96,7 @@ useEffect(() => {
     } else {
     }
   }
-
+//=============================loader
   if (isLoading) {
     return (
       <>
@@ -181,8 +141,7 @@ useEffect(() => {
     })
   };
   return (
-    <div ref={dropdownRef}>
-      
+    <div ref={dropdownRef}> 
       {data &&
         data.map((videoList: any, index: any) => (
           <div 
@@ -225,27 +184,29 @@ useEffect(() => {
                     </div>
                   </div>
                   <div className="mt-5 flex items-end">
-                    <Player
+                    <div>
+                      <Player
                       src={videoList.playbackUrls["480"][0]}
                       poster={videoList.thumbnailUrl}
                     />
+                    </div>
                     <div className="reaction-wrap flex items-end pl-5">
                       <ul className="[&>li]:pt-5 [&>li]:text-[11px] [&>li]:text-center">
-                      <li>
+                      <li className=" shrink-0 ">
                           <Link href="https://apps.apple.com/us/app/kwiks/id6448708199">
                             <img src="./loveIcon.svg" alt="" />
                             <span>{videoList.likes.length}</span>
                           </Link>
                         </li>
-                        <li>
+                        <li className="  shrink-0  ">
                           <Link href="https://apps.apple.com/us/app/kwiks/id6448708199">
                             <img src="./commentIcon.svg" alt="" />
                             <span>{videoList.comments}</span>
                           </Link>
                         </li>
-                        <li   className="relative">
+                        <li className="relative">
                           {dropDown&& dropId===videoList?._id && <div className="w-[200px] border bg-white shadow-2xl rounded-lg absolute bottom-[70px] left-0 z-[999999] flex justify-center items-end">
-                            <span style={{clipPath: "polygon(53% 52%, 0 0, 100% 0)"}} className="block w-5 h-5 bg-white absolute -bottom-5 left-2"></span>
+                            <span style={{clipPath: "polygon(53% 52%, 0 0, 100% 0)"}} className="block  bg-white absolute -bottom-5 w-5 h-5 left-2"></span>
                             <ul className="w-full flex flex-col gap-y-5 p-2">
                               
                              

@@ -673,6 +673,39 @@ video {
 .top-full {
   top: 100%;
 }
+.top-\[30\%\] {
+  top: 30%;
+}
+.top-\[40\%\] {
+  top: 40%;
+}
+.bottom-\[30px\] {
+  bottom: 30px;
+}
+.bottom-\[40px\] {
+  bottom: 40px;
+}
+.top-\[40px\] {
+  top: 40px;
+}
+.-top-2 {
+  top: -0.5rem;
+}
+.-top-8 {
+  top: -2rem;
+}
+.-top-3 {
+  top: -0.75rem;
+}
+.-top-4 {
+  top: -1rem;
+}
+.-bottom-0 {
+  bottom: -0px;
+}
+.-bottom-10 {
+  bottom: -2.5rem;
+}
 .z-10 {
   z-index: 10;
 }
@@ -991,6 +1024,33 @@ video {
 .h-screen {
   height: 100vh;
 }
+.h-\[50vh\] {
+  height: 50vh;
+}
+.h-\[70vh\] {
+  height: 70vh;
+}
+.h-\[30vh\] {
+  height: 30vh;
+}
+.h-\[30\] {
+  height: 30;
+}
+.h-\[20vh\] {
+  height: 20vh;
+}
+.h-\[25vh\] {
+  height: 25vh;
+}
+.h-\[28vh\] {
+  height: 28vh;
+}
+.h-\[35px\] {
+  height: 35px;
+}
+.h-\[50px\] {
+  height: 50px;
+}
 .max-h-\[120px\] {
   max-height: 120px;
 }
@@ -1008,6 +1068,27 @@ video {
 }
 .min-h-\[80px\] {
   min-height: 80px;
+}
+.min-h-\[30vh\] {
+  min-height: 30vh;
+}
+.min-h-\[10vh\] {
+  min-height: 10vh;
+}
+.min-h-\[1\] {
+  min-height: 1;
+}
+.min-h-\[700\] {
+  min-height: 700;
+}
+.min-h-\[700px\] {
+  min-height: 700px;
+}
+.min-h-\[\] {
+  min-height: ;
+}
+.min-h-\[900px\] {
+  min-height: 900px;
 }
 .\!w-12 {
   width: 3rem !important;
@@ -1133,6 +1214,12 @@ video {
 .w-screen {
   width: 100vw;
 }
+.w-\[50px\] {
+  width: 50px;
+}
+.w-\[\] {
+  width: ;
+}
 .min-w-\[130px\] {
   min-width: 130px;
 }
@@ -1150,6 +1237,12 @@ video {
 }
 .min-w-\[80px\] {
   min-width: 80px;
+}
+.min-w-\[300px\] {
+  min-width: 300px;
+}
+.min-w-\[80\] {
+  min-width: 80;
 }
 .max-w-\[520px\] {
   max-width: 520px;
@@ -1169,6 +1262,15 @@ video {
 }
 .max-w-sm {
   max-width: 24rem;
+}
+.max-w-\[300px\] {
+  max-width: 300px;
+}
+.max-w-\[350px\] {
+  max-width: 350px;
+}
+.max-w-\[320px\] {
+  max-width: 320px;
 }
 .flex-1 {
   flex: 1 1 0%;
@@ -1243,6 +1345,9 @@ video {
 .grid-flow-row {
   grid-auto-flow: row;
 }
+.grid-flow-col {
+  grid-auto-flow: column;
+}
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
@@ -1311,6 +1416,9 @@ video {
 }
 .gap-6 {
   gap: 1.5rem;
+}
+.gap-\[5px\] {
+  gap: 5px;
 }
 .gap-x-3 {
   -moz-column-gap: 0.75rem;
@@ -1428,6 +1536,9 @@ video {
 .border-8 {
   border-width: 8px;
 }
+.border-0 {
+  border-width: 0px;
+}
 .border-b {
   border-bottom-width: 1px;
 }
@@ -1465,6 +1576,10 @@ video {
 .border-white {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
+.border-gray-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(107 114 128 / var(--tw-border-opacity));
 }
 .border-l-transparent {
   border-left-color: transparent;
@@ -1756,6 +1871,9 @@ video {
 .text-right {
   text-align: right;
 }
+.text-start {
+  text-align: start;
+}
 .font-mono {
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -1942,6 +2060,11 @@ video {
 .shadow-md {
   --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.shadow-xl {
+  --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 .outline-none {
@@ -2823,6 +2946,10 @@ video {
     position: absolute;
   }
 
+  .md\:top-\[50\%\] {
+    top: 50%;
+  }
+
   .md\:block {
     display: block;
   }
@@ -2833,6 +2960,10 @@ video {
 
   .md\:h-screen {
     height: 100vh;
+  }
+
+  .md\:h-\[60vh\] {
+    height: 60vh;
   }
 
   .md\:min-h-screen {
@@ -2874,6 +3005,10 @@ video {
 
 @media (min-width: 1024px) {
 
+  .lg\:top-\[50\%\] {
+    top: 50%;
+  }
+
   .lg\:mx-0 {
     margin-left: 0px;
     margin-right: 0px;
@@ -2893,6 +3028,10 @@ video {
 
   .lg\:h-screen {
     height: 100vh;
+  }
+
+  .lg\:h-\[60vh\] {
+    height: 60vh;
   }
 
   .lg\:min-h-screen {
@@ -2950,6 +3089,10 @@ video {
 
 @media (min-width: 1280px) {
 
+  .xl\:top-\[50\%\] {
+    top: 50%;
+  }
+
   .xl\:block {
     display: block;
   }
@@ -2960,6 +3103,10 @@ video {
 
   .xl\:h-screen {
     height: 100vh;
+  }
+
+  .xl\:h-\[60vh\] {
+    height: 60vh;
   }
 
   .xl\:min-h-screen {

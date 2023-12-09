@@ -1,10 +1,8 @@
 "use client"
-
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState,useRef } from "react"
 import Link from "next/link"
 import { Loader2, Pencil, PlusCircle } from "lucide-react"
 import { useSession } from "next-auth/react"
-
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -15,24 +13,32 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  WhatsappShareButton,
+} from "react-share";
+import {
+  FacebookIcon,
+  WhatsappIcon,
+  XIcon,
+} from "react-share";
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ToastAction } from "@/components/ui/toast"
 import { useToast } from "@/components/ui/use-toast"
-import Player from "@/components/Player"
 import CoverPhoto from "@/components/profile/CoverPhoto"
 import EditProfileBtn from "@/components/profile/EditProfileBtn"
 import ModerationBtn from "@/components/profile/ModerationBtn"
 import VideoPlayer from "@/components/Player"
 export default function SingleUser({ params }) {
+  //===========================toast
   const { toast } = useToast()
   const userId = params.userId
   const [userData, setUserData] = useState()
   const [videoData, setVideoData] = useState()
-
   const [likedVideo, setlikedVideo] = useState()
   const { data: session } = useSession()
   const [videoPreview, setVideoPreview] = useState(false)
@@ -42,7 +48,24 @@ export default function SingleUser({ params }) {
   //=====================================copy link
   const [isCopied, setIsCopied] = useState(false)
   const [copied, setCopied] = useState("copy link")
+  const [dropDown, setDropdown] = useState(false)
+  const dropdownRef = useRef()
+  //================================handle dropdown
+const handleDropdown=()=>{
+  setDropdown(!dropDown)
+}
+//=======================================dropdown menu
+const handleClickOutside = (event) => {
+  if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+    setDropdown(false);
+  }
+};
+useEffect(() => {
+  document.addEventListener('click', handleClickOutside);
 
+  return () => document.removeEventListener('click', handleClickOutside)
+}, []);
+  //================================handle copy link
   const handleCopyLink = (id) => {
     const textarea = document.createElement("textarea")
     textarea.value = `https://logoproject.vercel.app/user/${id}`
@@ -56,6 +79,7 @@ export default function SingleUser({ params }) {
       setIsCopied(false), setCopied("Copy link")
     }, 2000)
   }
+  //=================================fetch data
   const fetchData = async () => {
     fetch(`https://kwiks-data.com/user/${userId}`, {
       method: "GET",
@@ -102,17 +126,16 @@ export default function SingleUser({ params }) {
         return
       })
   }
-
   useEffect(() => {
     fetchData()
   }, [session])
-
+  //====================all state
   const [name, setName] = useState()
   const [username, setUserName] = useState()
   const [bio, setBio] = useState()
   const [Loading, setLoading] = useState(false)
   const [avatar, setAvatar] = useState(null)
-
+//=========================handle submit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
@@ -173,15 +196,12 @@ export default function SingleUser({ params }) {
     const formData = new FormData()
     formData.append("avatar", avatar)
 
-    console.log(formData)
 
     try {
       const res = await fetch("https://kwiks-data.com/user/avatar", {
         method: "POST",
         headers: {
-          // @ts-ignore
           Authorization: `Bearer ${session?.user?.token}`,
-          // "Content-Type": "application/json",
         },
         body: formData,
       })
@@ -207,11 +227,16 @@ export default function SingleUser({ params }) {
   useEffect(() => {
     setSection(videoData)
   }, [videoData])
-
+//================================copy url
+const handleCopy = () => {
+  toast({
+    title: "copied!",
+  })
+};
   return (
     <>
       {videoPreview && (
-        <div className="w-screen lg:h-screen xl:h-screen md:h-screen h-auto top-0 left-0 fixed z-[9999] bg-white  ">
+        <div ref={dropdownRef} className="w-screen lg:h-screen xl:h-screen md:h-screen h-auto top-0 left-0 fixed z-[9999] bg-white  ">
           <button
             className="absolute cursor-pointer z-[99999] bg-opacity-50 hover:bg-opacity-100 transition-all duration-500 ease-in-out rounded-full p-2 top-[50px] left-[50px] bg-gray-500"
             onClick={() => setVideoPreview(false)}
@@ -233,8 +258,8 @@ export default function SingleUser({ params }) {
 
           <section className="text-gray-600 body-font w-full h-full flex justify-center items-center">
             <div className="w-full h-full  grid xl:grid-flow-col lg:grid-flow-col md:grid-flow-col grid-flow-row justify-center overflow-y-scroll">
-              <div className=" flex md:w-[70vw] lg:w-[70vw] xl:w-[70vw] w-[100vw] bg-black relative overflow-hidden py-10 m-auto lg:min-h-screen md:min-h-screen xl:min-h-screen h-screen justify-center">
-                <div className="flex flex-col gap-10 absolute top-[50%] right-[10%] z-[99999]">
+              <div className=" flex md:w-[70vw] lg:w-[70vw] xl:w-[70vw] w-[100vw] bg-black relative overflow-hidden py-10 m-auto lg:min-h-screen md:min-h-screen xl:min-h-screen h-[30vh] justify-center">
+                <div className="flex flex-col gap-10 absolute lg:top-[50%] xl:top-[50%] md:top-[50%] top-[30%] right-[10%] z-[99999]">
                   <button
                     onClick={() =>
                       setVideo(section?.length > 0 && video > 1 ? video - 1 : 0)
@@ -280,7 +305,7 @@ export default function SingleUser({ params }) {
                     </svg>
                   </button>
                 </div>
-                <div calssName="my-auto w-full h-full flex justify-center items-center">
+                <div className="my-auto w-full h-full flex justify-center items-center">
                   <div className="m-2 min-w-[640px] overflow-hidden h-full shrink-0 flex justify-center items-center">
                     {section?.length > 0 && (
 
@@ -288,12 +313,11 @@ export default function SingleUser({ params }) {
                               section[video]?.playbackUrls["480"][0] ||
                               "...loading"
                             }/>
-                     
                     )}
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col md:w-[30vw] lg:w-[30vw] xl:w-[30vw] w-[100vw] py-[20px] flex-wrap px-[35px] h-screen lg:text-left text-center overflow-hidden">
+              <div className="flex flex-col md:w-[30vw] lg:w-[30vw] xl:w-[30vw] w-[100vw] py-[20px] flex-wrap px-[35px] h-[70vh] lg:text-left text-center overflow-hidden">
                 <div className="flex flex-col w-full">
                   <div className="flex gap-5">
                     <div className=" h-12 w-12 shrink-0 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 mb-5">
@@ -312,19 +336,20 @@ export default function SingleUser({ params }) {
                     </div>
                     <div className="flex flex-col items-start">
                       <Link href={`/user/${userData?._id}`}>
-                        <h5 className="font-[700] text-[18px]">
+                        <h5 className="font-[700] text-[18px] text-start truncate whitespace-nowrap">
                           {userData?.name}
                         </h5>
                       </Link>
-                      <span className="text-[14px]">{userData?.bio}</span>
+                      <span className="text-[14px] truncate whitespace-nowrap w-[300px]">{userData?.bio}</span>
                     </div>
                   </div>
                   <div className="flex-grow w-full h-[10vh]">
-                    <h2 className="text-gray-900 text-lg title-font font-medium mb-3">
+                    <h2 className="text-gray-900 text-lg title-font font-medium mb-3 text-start">
                       {section && section[video]?.caption}
                     </h2>
                   </div>
                   <div className=" flex-grow w-full h-[5vh]">
+
                     <div className=" flex">
                       <ul className="flex gap-5">
                         <li className="flex items-center gap-2">
@@ -347,8 +372,58 @@ export default function SingleUser({ params }) {
                             <span>{section && section[video]?.comments}</span>
                           </a>
                         </li>
-                        <li className="flex items-center gap-2">
-                          <a
+                        <li className="flex items-center gap-2 relative">
+                        {dropDown&& <div className="w-[200px] border bg-white shadow-2xl rounded-lg absolute top-[40px] right-4 z-[999999] flex justify-center items-end">
+                            <span style={{clipPath: "polygon(53% 52%, 0 0, 100% 0)"}} className="block  bg-white absolute -bottom-5 left-2"></span>
+                            <ul className="w-full flex flex-col gap-y-5 p-2">
+                              
+                             
+                              <li className="flex justify-start items-center">
+                              <FacebookShareButton
+                              url={`https://kwiks.com/user/${userData?._id}`}
+                              className="flex items-center gap-2"
+                            >
+                              <FacebookIcon size={25} round /> <span className="text-[14px] text-gray-700 hover:text-green-500 transition-all duration-500 ease-in-out block font-bold">share on facebook</span>
+                            </FacebookShareButton>
+
+                              </li>
+                              <li className="flex justify-start items-center">
+                              <TwitterShareButton
+                            url={`https://kwiks.com/user/${userData?._id}`}
+                            
+                            className="flex items-center gap-2"
+                          >
+                            <XIcon size={25} round /><span className="text-[14px] text-gray-700 hover:text-green-500 transition-all duration-500 ease-in-out block font-bold">share on Twitter</span>
+                          </TwitterShareButton>
+                              </li>
+                              <li className="flex justify-start items-center">
+                              <WhatsappShareButton
+                              url={`https://kwiks.com/user/${userData?._id}`}
+                            
+                              className="flex items-center gap-2"
+                            >
+                              <WhatsappIcon size={25} round /><span className="text-[14px] text-gray-700 hover:text-green-500 transition-all duration-500 ease-in-out block font-bold">share on Whatsapp</span>
+                            </WhatsappShareButton>
+
+                              </li>
+                              <li className="flex justify-start items-center">
+                           
+                              <CopyToClipboard text={`https://logoproject.vercel.app/user/${userData?._id}`} onCopy={handleCopy}>
+                                <button  className="w-full h-[30px] text-[16px] flex items-center gap-2  capitalize transition-all duration-500 ease-in-out"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 8c-2.248 0-4 1.752-4 4s1.752 4 4 4h2a1 1 0 1 1 0 2H8c-3.352 0-6-2.648-6-6s2.648-6 6-6h2a1 1 0 1 1 0 2H8zm5-1a1 1 0 0 1 1-1h2c3.352 0 6 2.648 6 6s-2.648 6-6 6h-2a1 1 0 1 1 0-2h2c2.248 0 4-1.752 4-4s-1.752-4-4-4h-2a1 1 0 0 1-1-1zm-6 5a1 1 0 0 1 1-1h8a1 1 0 1 1 0 2H8a1 1 0 0 1-1-1z" fill="#0D0D0D"/></svg> <span className="text-[14px] text-gray-700 hover:text-green-500 transition-all duration-500 ease-in-out block font-bold">Copy url</span></button>
+                              </CopyToClipboard>
+                         </li>
+                            </ul>
+                            </div>}
+                            {userData?<button
+                            onClick={handleDropdown}
+                            className="flex items-center gap-2"
+                           
+                          >
+                            <img src="../shareIcon.svg" alt="" />
+                            <span>
+                              {section && section[video]?.likes?.length}
+                            </span>
+                          </button>:<a
                             className="flex items-center gap-2"
                             href="https://apps.apple.com/us/app/kwiks/id6448708199"
                           >
@@ -356,14 +431,15 @@ export default function SingleUser({ params }) {
                             <span>
                               {section && section[video]?.likes?.length}
                             </span>
-                          </a>
+                          </a>}
+                          
                         </li>
                       </ul>
                     </div>
                   </div>
                   <div className="flex-grow w-full h-[10vh] x-[10px]">
                     <div className="border rounded-lg my-10 flex items-center justify-between w-full">
-                      <span className="inline-block p-2 truncate w-[70%]">{`https://logoproject.vercel.app/user/${userData?._id}`}</span>
+                      <span className="inline-block p-2 truncate w-[70%]">{`https://kwiks-data.com/user/${userData?._id}`}</span>
                       <button
                         onClick={() => handleCopyLink(userData?._id)}
                         className=" min-w-[130px] bg-green-500 text-white hover:bg-green-700 rounded-lg transition-all duration-500 ease-in-out py-2 px-4"
@@ -372,7 +448,7 @@ export default function SingleUser({ params }) {
                       </button>
                     </div>
                   </div>
-                  <div className="flex-grow w-full h-[60vh] min-h-[60vh] overflow-hidden mt-8">
+                  <div className="flex-grow w-full lg:h-[60vh] xl:h-[60vh] md:h-[60vh] h-[30vh] min-h-[10vh] overflow-hidden mt-8">
                     <Tabs
                       defaultValue="Comments"
                       className=" border rounded-md"
@@ -389,7 +465,7 @@ export default function SingleUser({ params }) {
                       ></TabsContent>
                       <ScrollArea className=" rounded-md w-full h-[55vh]">
                         <TabsContent
-                          className="overflow-auto h-full border grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2"
+                          className="overflow-auto h-full  grid grid-cols-2 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-2"
                           value="Creator"
                         >
                           {section &&
@@ -566,7 +642,6 @@ export default function SingleUser({ params }) {
         <Button className="mb-5 flex items-center">
           <PlusCircle /> <span className="ml-2">Upload Video</span>
         </Button>
-
         <Tabs defaultValue="posts">
           <TabsList className="grid grid-cols-2 w-[400px]">
             <TabsTrigger onClick={() => setSection(videoData)} value="posts">

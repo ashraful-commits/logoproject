@@ -170,7 +170,7 @@ useEffect(() => {
                                     )
                                   )}
                            {dropDownMenu&& dropId===videoList?.uploader?._id&&  <div  ref={dropRef} className=" absolute top-16 bg-white rounded-md border shadow-2xl p-3 right-1 flex flex-col justify-center ml-5 max-md:mt-5">
-                           <span style={{clipPath: "polygon(51% 12%, 0% 100%, 100% 100%)"}} className="block w-8 h-8   shadow-2xl border bg-white absolute -top-5 right-2"></span>
+                           <span style={{clipPath: "polygon(51% 12%, 0% 100%, 100% 100%)"}} className="block w-5 h-5  border bg-gray-100 absolute shadow-xl -top-5 right-2 "></span>
                                 {/* Prioritize button */}
                                 <Prioritize ref={dropRef} videoList={videoList._id} />
 

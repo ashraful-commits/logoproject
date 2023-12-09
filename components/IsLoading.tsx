@@ -6,13 +6,13 @@ export default function IsLoading() {
   return (
     <div className="container flex justify-between mt-16">
       <div className ="flex flex-col">
-      <Skeleton className="h-[60px] w-52 bg-gray-100 mt-5 " />
-      <Skeleton className="h-[40px] w-52 bg-gray-100 mt-5 rounded-full " />
-      <Skeleton className="h-[40px] w-52 bg-gray-100 mt-5 rounded-full " />
-      <Skeleton className="h-[40px] w-52 bg-gray-100 mt-5 rounded-full " />
-      <Skeleton className="h-[40px] w-52 bg-gray-100 mt-5 rounded-full " />
-      <Skeleton className="h-[40px] w-52 bg-gray-100 mt-5 rounded-full " />
-      <Skeleton className="h-[40px] w-52 bg-gray-100 mt-5 rounded-full " />
+      <Skeleton className="h-[50px] w-52 bg-gray-100 mt-5 " />
+      <Skeleton className="h-[35px] w-52 bg-gray-100 mt-2 rounded-full " />
+      <Skeleton className="h-[35px] w-52 bg-gray-100 mt-2 rounded-full " />
+      <Skeleton className="h-[35px] w-52 bg-gray-100 mt-2 rounded-full " />
+      <Skeleton className="h-[35px] w-52 bg-gray-100 mt-2 rounded-full " />
+      <Skeleton className="h-[35px] w-52 bg-gray-100 mt-2 rounded-full " />
+      <Skeleton className="h-[35px] w-52 bg-gray-100 mt-2 rounded-full " />
       </div>
       <div className=" items-center grid grid-cols-3 gap-5">
         <div className="items-center ">

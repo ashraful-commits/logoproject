@@ -183,7 +183,7 @@ export default function Moderation() {
                                         clipPath:
                                           "polygon(51% 12%, 0% 100%, 100% 100%)",
                                       }}
-                                      className="block w-8 h-8   shadow-2xl border bg-white absolute -top-5 right-2"
+                                      className="block w-5 h-5  shadow-2xl border bg-gray-100 absolute -top-5 right-2"
                                     ></span>
                                     {/* Approve Button */}
                                     <Approve ref={dropRef} videoId={videoList._id} />

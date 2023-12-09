@@ -73,7 +73,15 @@ useEffect(() => {
 
   if (isLoading) {
     return <div className="max-md:pl-0  max-md:pr-0 container flex relative justify-center lg:justify-between mt-16">
-      <Skeleton className="w-[200px] h-[500px] bg-gray-100 rounded-md mt-5"/>
+      <div className="flex flex-col gap-[5px]">
+      <Skeleton className="w-[200px] h-[50px] bg-gray-100 rounded-md mt-5"/>
+      <Skeleton className="w-[200px] h-[35px]  bg-gray-100 rounded-full mt-2"/>
+      <Skeleton className="w-[200px] h-[35px]  bg-gray-100 rounded-full mt-2"/>
+      <Skeleton className="w-[200px] h-[35px]  bg-gray-100 rounded-full mt-2"/>
+      <Skeleton className="w-[200px] h-[35px]  bg-gray-100 rounded-full mt-2"/>
+      <Skeleton className="w-[200px] h-[35px]  bg-gray-100 rounded-full mt-2"/>
+      <Skeleton className="w-[200px] h-[35px]  bg-gray-100 rounded-full mt-2"/>
+      </div>
         <div className="grid grid-cols-2 gap-10 mt-5">
         <Skeleton className="w-[500px] h-[500px] bg-gray-100 rounded-md"/>
         <Skeleton className="w-[500px] h-[500px] bg-gray-100 rounded-md"/>
