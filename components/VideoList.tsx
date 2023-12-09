@@ -100,36 +100,46 @@ useEffect(() => {
   if (isLoading) {
     return (
       <>
-        <div className="flex justify-between items-center w-[70%] mt-5">
-          <div className="flex items-center space-x-4">
-            <Skeleton className="h-12 w-12 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-[150px]" />
-              <Skeleton className="h-4 w-[150px]" />
-            </div>
-          </div>
-          <div>
-            <Skeleton className="h-8 w-[100px]" />
-          </div>
-        </div>
-        <div className="flex justify-center w-[70%] mt-5">
-          <Skeleton className="h-[480px] w-[420px]" />
-        </div>
         <div className="flex justify-between items-center w-[70%] mt-10">
-          <div className="flex items-center space-x-4">
-            <Skeleton className="h-12 w-12 rounded-full" />
-            <div className="space-y-2">
-              <Skeleton className="h-4 w-[150px]" />
-              <Skeleton className="h-4 w-[00px]" />
+          <div className="flex items-center justify-between w-full">
+            <Skeleton className="h-12 w-12 rounded-full shrink-0" />
+            <div className="space-y-2 w-[100px] mr-auto">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-4 w-[100px]" />
             </div>
-          </div>
-          <div>
+            <div>
             <Skeleton className="h-8 w-[100px]" />
           </div>
+          </div>
         </div>
-        <div className="flex justify-center w-[70%] mt-5">
-          <Skeleton className="h-[480px] w-[420px]" />
+        <div className="flex flex-col justify-center w-[70%] mt-5">
+            <Skeleton className="h-[30px] w-[300px] mb-3" />
+        <div className="flex items-end gap-x-5 w-full">
+            <Skeleton className="h-[520px] w-[500px]" />
+            <Skeleton className="h-[200px] w-[40px]" />
+          </div>
         </div>
+        {/* part 2  */}
+        <div className="flex justify-between items-center w-[70%] mt-10">
+          <div className="flex items-center justify-between w-full">
+            <Skeleton className="h-12 w-12 rounded-full shrink-0" />
+            <div className="space-y-2 w-[100px] mr-auto">
+              <Skeleton className="h-4 w-[100px]" />
+              <Skeleton className="h-4 w-[100px]" />
+            </div>
+            <div>
+            <Skeleton className="h-8 w-[100px]" />
+          </div>
+          </div>
+        </div>
+        <div className="flex flex-col justify-center w-[70%] mt-5">
+            <Skeleton className="h-[30px] w-[300px] mb-3" />
+        <div className="flex items-end gap-x-5 w-full">
+            <Skeleton className="h-[520px] w-[500px]" />
+            <Skeleton className="h-[200px] w-[40px]" />
+          </div>
+        </div>
+        
       </>
     )
   }
