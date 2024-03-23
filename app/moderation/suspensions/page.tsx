@@ -1,16 +1,8 @@
 "use client"
-
 import React, { useEffect, useState } from "react"
 import { useSession } from "next-auth/react"
-
 import { useToast } from "@/components/ui/use-toast"
 import IsLoading from "@/components/IsLoading"
-import Player from "@/components/Player"
-import Userinfo from "@/components/Userinfo"
-
-import Decline from "../Buttons/Decline"
-import Prioritize from "../Buttons/Prioritize"
-import Suspend from "../Buttons/Suspend"
 import Unsuspend from "../Buttons/Unsuspend"
 import SideMenu from "../SideMenu"
 import Link from "next/link"
@@ -149,10 +141,10 @@ export default function Moderation() {
 
   return (
     <>
-      <div className="max-md:pl-0 max-md:pr-0 container flex relative justify-center lg:justify-between mt-16">
+      <div className="container relative flex justify-center mt-16 max-md:pl-0 max-md:pr-0 lg:justify-between">
         <SideMenu />
-        <div className="lg:w-9/12 w-full max-md:w-full mt-5">
-          <section className="max-md:pl-5 max-md:pr-5 container grid items-center lg:gap-6 pb-8">
+        <div className="w-full mt-5 lg:w-9/12 max-md:w-full">
+          <section className="container grid items-center pb-8 max-md:pl-5 max-md:pr-5 lg:gap-6">
             <div className="flex max-w-[980px] w-full grid grid-cols-3 gap-5 bg-white text-black">
               {userData &&userData?.length>0 ?
                 // @ts-ignore
@@ -162,16 +154,16 @@ export default function Moderation() {
                     className=" border rounded-lg h-[450px] overflow-hidden relative max-lg:flex max-lg:justify-center w-full"
                   >
                    
-                      <div className="flex justify-between  border-b  ">
-                        <div className=" w-full">
+                      <div className="flex justify-between border-b ">
+                        <div className="w-full ">
 
-                          <div className="flex px-3 gap-x-3 mt-2">
+                          <div className="flex px-3 mt-2 gap-x-3">
                        <Link href={`http://localhost:3000/user/${videoList?._id}`}>   <div
                             onClick={() => checkLogin(videoList.uploader._id)}
                             className="cursor-pointer w-[46px] h-[46px] overflow-hidden rounded-full shrink-0"
                           >
                             <img
-                              className=" shrink-0 w-full h-full"
+                              className="w-full h-full  shrink-0"
                               src={videoList.avatar}
                               alt=""
                             />
@@ -194,13 +186,12 @@ export default function Moderation() {
                            <div className="ml-auto"> <Unsuspend data={videoList._id} /></div>
                           </div>
                          
-                          <div className=" flex justify-center items-start">
+                          <div className="flex items-start justify-center ">
                             <div className="mt-5 w-full h-[382px] overflow-hidden py-5 flex justify-center items-center flex-col ">
-                             {/* {videoList?.playbackUrls["480"][0]&& <video controls className="w-full h-full" src={videoList?.playbackUrls["480"][0]}></video>}
-                             {videoList?.playbackUrls["720"][0]&& <video controls className="w-full h-full" src={videoList?.playbackUrls["720"][0]}></video>}
-                             {videoList?.playbackUrls["1080"][0]&& <video controls className="w-full h-full" src={videoList?.playbackUrls["1080"][0]}></video>} */}
-                           
+                            
                              <p>Account Suspended</p>
+                             <div className="w-full h-[1px] bg-gray-300 mx-4"></div>
+                            <span className="px-3 text-center"> Account suspended until <br/> { videoList.suspendUntil}</span>
                             </div>
                           </div>
                         </div>

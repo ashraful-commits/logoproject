@@ -15,7 +15,6 @@ import SideMenu from "./SideMenu"
 export default function Moderation() {
   const [isLoading, setIsLoading] = useState(true)
   const [userData, setuserData] = useState()
-  console.log(userData)
   const { data: session } = useSession()
   const [dropId, setDropId] = useState()
   const [dropDownMenu, setDropdownMenu] = useState(false)
@@ -73,16 +72,16 @@ export default function Moderation() {
   if (isLoading) {
     return <IsLoading />
   }
-  console.log(userData)
+
   return (
     <>
       <div
         ref={dropdownRef}
-        className="max-md:pl-0 max-md:pr-0 container flex relative justify-center lg:justify-between mt-16"
+        className="container relative flex justify-center mt-16 max-md:pl-0 max-md:pr-0 lg:justify-between"
       >
-        <SideMenu />
-        <div className="lg:w-9/12 w-full max-md:w-full">
-          <section className="max-md:pl-5 max-md:pr-5 mt-10 container flex items-center lg:gap-6 pb-8">
+        <SideMenu userData={userData} />
+        <div className="w-full lg:w-9/12 max-md:w-full">
+          <section className="container flex items-center pb-8 mt-10 max-md:pl-5 max-md:pr-5 lg:gap-6">
             <div className=" max-w-[980px] w-full  grid grid-cols-3 items-start gap-5 bg-white text-black">
               {userData &&
                 // @ts-ignore
@@ -92,15 +91,15 @@ export default function Moderation() {
                     className=" border rounded-lg h-[450px] overflow-hidden relative max-lg:flex max-lg:justify-center w-full "
                   >
                     {videoList.status != "deprioritized" && (
-                      <div className="flex justify-between  border-b  ">
-                        <div className=" w-full">
-                          <div className="flex px-3 gap-x-3 mt-2">
+                      <div className="flex justify-between border-b ">
+                        <div className="w-full ">
+                          <div className="flex px-3 mt-2 gap-x-3">
                             <div
                               onClick={() => checkLogin(videoList.uploader._id)}
                               className="cursor-pointer w-[46px] h-[46px] overflow-hidden rounded-full shrink-0"
                             >
                               <img
-                                className=" shrink-0 w-full h-full"
+                                className="w-full h-full shrink-0"
                                 src={videoList.uploader?.avatar}
                                 alt=""
                               />
@@ -164,7 +163,7 @@ export default function Moderation() {
                             </button>
                           </div>
 
-                          <div className=" flex justify-center items-start">
+                          <div className="flex items-start justify-center ">
                             <div className="mt-5 w-full h-[382px] overflow-hidden py-5 flex justify-center items-center flex-col ">
                             {(videoList?.playbackUrls["480"] && videoList.playbackUrls["480"][0]) ? (
                                         <video controls className="w-full h-full" src={videoList.playbackUrls["480"][0]}></video>
@@ -179,13 +178,13 @@ export default function Moderation() {
                                       )}
                               {dropDownMenu &&
                                 dropId === videoList?.uploader?._id && (
-                                  <div ref={dropRef} className=" absolute top-16 bg-white rounded-md border shadow-2xl p-3 right-1 flex flex-col justify-center items-center ml-5 max-md:mt-5">
+                                  <div ref={dropRef} className="absolute flex flex-col items-center justify-center p-3 ml-5 bg-white border rounded-md shadow-2xl top-16 right-1 max-md:mt-5">
                                     <span
                                       style={{
                                         clipPath:
                                           "polygon(51% 12%, 0% 100%, 100% 100%)",
                                       }}
-                                      className="block w-5 h-5  shadow-2xl border bg-gray-100 absolute -top-5 right-2"
+                                      className="absolute block w-5 h-5 bg-gray-100 border shadow-2xl -top-5 right-2"
                                     ></span>
                                     {/* Approve Button */}
                                     <Approve ref={dropRef} videoId={videoList._id} />

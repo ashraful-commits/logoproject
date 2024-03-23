@@ -1,4 +1,4 @@
-// File: C:\Users\User\Desktop\kwiks-web\app\api\auth\[...nextauth]\route.js
+// File: D:\kwiks-web\app\api\auth\[...nextauth]\route.js
 import * as entry from '../../../../../../app/api/auth/[...nextauth]/route.js'
 import type { NextRequest } from 'next/server.js'
 

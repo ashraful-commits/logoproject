@@ -1,4 +1,4 @@
-// File: C:\Users\User\Desktop\kwiks-web\app\page.tsx
+// File: D:\kwiks-web\app\page.tsx
 import * as entry from '../../../app/page.js'
 import type { ResolvingMetadata } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

@@ -37,7 +37,7 @@ export default function Dashboard() {
       <>
         <div className="video-list-wrapper">
           <div className="flex flex-col justify-start mt-10">
-            <Skeleton className="h-12 w-12 rounded-full mb-2" />
+            <Skeleton className="w-12 h-12 mb-2 rounded-full" />
             <div>
               <Skeleton className="h-4 w-[250px] mb-2" />
               <Skeleton className="h-4 w-[200px]" />
@@ -60,44 +60,44 @@ export default function Dashboard() {
   }
   return (
     <>
-      <div className="video-list-wrapper w-8/12 max-lg:w-full">
-        <div className="flex justify-between items-center max-lg:flex-col">
+      <div className="w-8/12 video-list-wrapper max-lg:w-full">
+        <div className="flex items-center justify-between max-lg:flex-col">
           <h1 className="m-5">
             {userData._id}
             {userData.avatar != undefined && (
               <img
-                className="w-14 h-14 rounded-full mb-4"
+                className="mb-4 rounded-full w-14 h-14"
                 src={userData && userData.avatar}
               />
             )}
             {userData && userData.avatar == undefined && (
-              <img className="w-14 h-14 rounded-full mb-4" src="user.png" />
+              <img className="mb-4 rounded-full w-14 h-14" src="user.png" />
             )}
             Hello, {userData && userData.name} 👋
           </h1>
           {userData && userData.accountLevel == "admin" && (
-            <Link className="getBtn font-semibold" href="/moderation">
+            <Link className="font-semibold getBtn" href="/moderation">
               Video Moderation
             </Link>
           )}
         </div>
         <div className="flex items-center justify-end mb-5 max-lg:justify-center">
-          <div className="bg-gray-100 py-2 px-5 m-2 rounded-lg">
+          <div className="px-5 py-2 m-2 bg-gray-100 rounded-lg">
             <Link href="/message">
               <Mail />
             </Link>
           </div>
         </div>
-        <div className="flex w-full justify-between">
-          <div className="text-center bg-gray-100 w-4/12 m-3 p-5 rounded-lg">
+        <div className="flex justify-between w-full">
+          <div className="w-4/12 p-5 m-3 text-center bg-gray-100 rounded-lg">
             <h1 className="text-4xl">{userData && userData.postCount}</h1>
             <h4 className="font-semibold max-md:text-[10px]">Post Count</h4>
           </div>
-          <div className="text-center bg-gray-100 w-4/12 m-3 p-5 rounded-lg">
+          <div className="w-4/12 p-5 m-3 text-center bg-gray-100 rounded-lg">
             <h1 className="text-4xl">{userData && userData.likes}</h1>
             <h4 className="font-semibold max-md:text-[10px]">Likes</h4>
           </div>
-          <div className="text-center bg-gray-100 w-4/12 m-3 p-5 rounded-lg">
+          <div className="w-4/12 p-5 m-3 text-center bg-gray-100 rounded-lg">
             <h1 className="text-4xl">{userData && userData.followers}</h1>
             <h4 className="font-semibold max-md:text-[10px]">followers</h4>
           </div>
